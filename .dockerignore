@@ -1,0 +1,15 @@
+.git/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+dist/
+build/
+*.egg-info/
+.env
+.wandb_key
+.hf_token
+checkpoints/
+logs/
+wandb/
+scripts/.vast_state

@@ -1,0 +1,9 @@
+services:
+  dsl-debug:
+    image: ${DOCKER_REPO:-andrewlngdn}/dsl-debug-server
+    build:
+      context: ..
+      dockerfile: server/Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

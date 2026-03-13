@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsl-debug"
+version = "0.1.0"
+description = "Multi-turn debugging environment for training and evaluating LLM agents"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+# Core package has ZERO external dependencies — only Python stdlib
+dependencies = []
+
+[project.scripts]
+dsl-debug = "dsl_debug.cli:cli"
+
+[project.optional-dependencies]
+cli = ["click>=8.0", "huggingface-hub>=0.20"]
+test_sets = ["pandas>=2.0", "pyarrow>=12.0"]
+server = ["fastapi>=0.100", "uvicorn>=0.20", "pandas>=2.0", "pyarrow>=12.0"]
+eval = ["openai>=1.0", "pandas>=2.0", "pyarrow>=12.0"]
+training = [
+    "click>=8.0",
+    "pandas>=2.0",
+    "pyarrow>=12.0",
+    "wandb>=0.15",
+    "huggingface_hub>=0.20",
+    "transformers>=4.40",
+]
+vast = ["vastai>=0.2"]
+all = ["dsl-debug[cli,test_sets,server,eval]"]
+
+[dependency-groups]
+dev = [
+    "dsl-debug[cli,test_sets]",
+    "pytest>=7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

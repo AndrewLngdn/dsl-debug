@@ -1,0 +1,79 @@
+# DSL Debug Tool Configuration (verl 0.7.0)
+#
+# Four tools wrapping DSLDebugEnv for multi-turn GRPO training:
+#   - RunTool: Execute DSL code
+#   - InspectTool: View intermediate node output
+#   - ReadDocsTool: Read DSL operation docs
+#   - SubmitTool: Submit corrected code (ends episode)
+#
+# Tool classes at tools/dsl_debug_tool.py
+# Requires PYTHONPATH to include the dsl-debug project root
+
+tools:
+  - class_name: tools.dsl_debug_tool.RunTool
+    config:
+      type: native
+    tool_schema:
+      type: function
+      function:
+        name: run
+        description: "Execute DSL code and see the output or errors."
+        parameters:
+          type: object
+          properties:
+            code:
+              type: string
+              description: "The DSL program to execute"
+          required:
+            - code
+
+  - class_name: tools.dsl_debug_tool.InspectTool
+    config:
+      type: native
+    tool_schema:
+      type: function
+      function:
+        name: inspect
+        description: "View the intermediate output at a specific node in the program."
+        parameters:
+          type: object
+          properties:
+            node_name:
+              type: string
+              description: "Name of the variable/node to inspect"
+          required:
+            - node_name
+
+  - class_name: tools.dsl_debug_tool.ReadDocsTool
+    config:
+      type: native
+    tool_schema:
+      type: function
+      function:
+        name: read_docs
+        description: "Read documentation for a DSL operation."
+        parameters:
+          type: object
+          properties:
+            operation:
+              type: string
+              description: "The operation name (e.g. filter, join, sort_by)"
+          required:
+            - operation
+
+  - class_name: tools.dsl_debug_tool.SubmitTool
+    config:
+      type: native
+    tool_schema:
+      type: function
+      function:
+        name: submit
+        description: "Submit your corrected code. This ends the episode."
+        parameters:
+          type: object
+          properties:
+            code:
+              type: string
+              description: "The corrected DSL program"
+          required:
+            - code
